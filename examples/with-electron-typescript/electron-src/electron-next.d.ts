@@ -1,13 +1,11 @@
-declare module "electron-next" {
-
-  function adjustRenderer (directory: string): void;
-
-  function devServer (dir: string, port?: number): void;
-
+declare module 'electron-next' {
   interface Directories {
-    production: string,
+    production: string
     development: string
   }
 
-  export default function(directories: Directories | string, port?: number): adjustRenderer | devServer;
+  export default function (
+    directories: Directories | string,
+    port?: number
+  ): Promise<void>
 }

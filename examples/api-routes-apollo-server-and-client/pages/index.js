@@ -1,40 +1,46 @@
-import withApolloClient from '../lib/with-apollo-client'
 import gql from 'graphql-tag'
 import Link from 'next/link'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
+import { initializeApollo } from '../apollo/client'
 
 const ViewerQuery = gql`
   query ViewerQuery {
     viewer {
       id
       name
-      status @client
+      status
     }
   }
 `
 
 const Index = () => {
   const {
-    data: { viewer }
+    data: { viewer },
   } = useQuery(ViewerQuery)
 
-  if (viewer) {
-    return (
-      <div>
-        You're signed in as {viewer.name} and you're {viewer.status} goto{' '}
-        <Link href='/about'>
-          <a>static</a>
-        </Link>{' '}
-        page.
-      </div>
-    )
+  return (
+    <div>
+      You're signed in as {viewer.name} and you're {viewer.status} goto{' '}
+      <Link href="/about">
+        <a>static</a>
+      </Link>{' '}
+      page.
+    </div>
+  )
+}
+
+export async function getStaticProps() {
+  const apolloClient = initializeApollo()
+
+  await apolloClient.query({
+    query: ViewerQuery,
+  })
+
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+    },
   }
-
-  return null
 }
 
-Index.getInitialProps = async ({ client }) => {
-  await client.query({ query: ViewerQuery })
-}
-
-export default withApolloClient(Index)
+export default Index

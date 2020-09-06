@@ -7,12 +7,13 @@ Somewhere you are utilizing the `next/link` component, `Router#push`, or `Router
 Note: this error will only show when the `next/link` component is clicked not when only rendered.
 
 **Incompatible `href` and `as`**
+
 ```jsx
 import Link from 'next/link'
 
 export default () => (
   <>
-    <Link href='/[post]' as='/post-1/comments'>
+    <Link href="/[post]" as="/post-1/comments">
       <a>Invalid link</a>
     </Link>
   </>
@@ -20,12 +21,13 @@ export default () => (
 ```
 
 **Compatible `href` and `as`**
+
 ```jsx
 import Link from 'next/link'
 
 export default () => (
   <>
-    <Link href='/[post]' as='/post-1'>
+    <Link href="/[post]" as="/post-1">
       <a>Valid link</a>
     </Link>
   </>
@@ -38,5 +40,5 @@ Look for any usage of the `next/link` component, `Router#push`, or `Router#repla
 
 ### Useful Links
 
-- [Routing section in Documentation](https://nextjs.org/docs#routing)
-- [Dynamic routing section in Documentation](https://nextjs.org/docs#dynamic-routing)
+- [Routing section in Documentation](https://nextjs.org/docs/routing/introduction)
+- [Dynamic routing section in Documentation](https://nextjs.org/docs/routing/dynamic-routes)

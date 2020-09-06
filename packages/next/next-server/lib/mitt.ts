@@ -32,12 +32,12 @@ export default function mitt(): MittEmitter {
 
     off(type: string, handler: Handler) {
       if (all[type]) {
-        // tslint:disable-next-line:no-bitwise
         all[type].splice(all[type].indexOf(handler) >>> 0, 1)
       }
     },
 
     emit(type: string, ...evts: any[]) {
+      // eslint-disable-next-line array-callback-return
       ;(all[type] || []).slice().map((handler: Handler) => {
         handler(...evts)
       })
